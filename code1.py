@@ -2,6 +2,7 @@ import pyautogui
 import time
 from PIL import Image, ImageOps, ImageGrab
 from numpy import *
+from quickGrab import screenGrab
 
 x_pad = 77
 y_pad = 163
@@ -104,14 +105,15 @@ def makeFood(food):
 def foldMat():
     pyautogui.click(464, 604) # fold mat
 
-        
-def screenGrab():
-    time.sleep(3)
-    b1 = (x_pad+1, y_pad+1, x_pad+1047, y_pad+556)  # Define the bounding box (left, upper, right, lower)
-    im = ImageGrab.grab(b1)
+    
 
-    # im.save(os.path.join(os.getcwd(), 'screenshot.png'), 'PNG')
-    return im
+def grab():
+    box = (x_pad+1, y_pad+1, x_pad+1047, y_pad+556)
+    im = ImageOps.grayscale(ImageGrab.grab(box)) # Converts the image to grayscale
+    a = array(im.getcolors())
+    a = a.sum()
+    print(a)
+    return a
         
         
 def buyFood(food):
@@ -201,5 +203,6 @@ if __name__ == "__main__":
     # makeFood("onigiri")
     # makeFood("caliroll")
     # makeFood("gunkan")
-    buyFood("roe")
+    # buyFood("roe")
     # clearTables()
+    grab()

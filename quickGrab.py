@@ -20,11 +20,10 @@ x_pad = 77
 y_pad = 163
 
 
+
 def screenGrab():
-    time.sleep(3)  # Wait 3 seconds before taking the screenshot
-    
-    b1 = (x_pad+1, y_pad+1, x_pad+1047, y_pad+556)  # Define the bounding box (left, upper, right, lower)
-    im = ImageGrab.grab(b1)
+    box = (x_pad+1, y_pad+1, x_pad+1047, y_pad+556)  # Define the bounding box (left, upper, right, lower)
+    im = ImageGrab.grab(box)
 
     # im.save(os.path.join(os.getcwd(), 'screenshot.png'), 'PNG')
     return im
@@ -36,21 +35,9 @@ def test():
     print(f"Pixel color at shrimp button: {pixel}")
 
 
-def main():
-    im = screenGrab()
-    # pass
-
 
 
 if __name__ == '__main__':
     time.sleep(2)
-    main()
+    screenGrab()
 
-"""
-(0, 0, 0, 255) - nori
-(103, 78, 46, 255) - roe
-(0, 0, 0, 255) - salmon
-(102, 158, 217, 255) - shrimp
-(241, 193, 128, 255) - unagi
-(224, 216, 206, 255) - buy rice
-"""
