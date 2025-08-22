@@ -14,7 +14,7 @@ Sushi Go Round: https://www.crazygames.com/game/sushi-go-round
 from PIL import ImageGrab
 import os
 import time
-from code1 import Cord
+from cord import Cord
 
 x_pad = 77
 y_pad = 163
@@ -25,7 +25,7 @@ def screenGrab():
     box = (x_pad+1, y_pad+1, x_pad+1047, y_pad+556)  # Define the bounding box (left, upper, right, lower)
     im = ImageGrab.grab(box)
 
-    # im.save(os.path.join(os.getcwd(), 'screenshot.png'), 'PNG')
+    im.save(os.path.join(os.getcwd(), 'screenshot.png'), 'PNG')
     return im
 
 
