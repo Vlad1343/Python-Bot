@@ -16,39 +16,26 @@ def startGame():
     time.sleep(5)  # Wait 5 seconds to give time to switch
 
     # Location of "Play" button (double click)
-    mousePos((600, 537))
-    pyautogui.mouseDown()
-    time.sleep(0.1)
-    pyautogui.mouseUp()
-    time.sleep(3)
-    pyautogui.mouseDown()
-    time.sleep(0.1)
-    pyautogui.mouseUp()
-    time.sleep(7)
+    pyautogui.click(600, 537, clicks=2, interval=1)
+    time.sleep(5)
 
     # Location of first menu
-    mousePos((595, 398))
-    pyautogui.mouseDown()
-    time.sleep(0.1)
-    pyautogui.mouseUp()
-
+    pyautogui.click(600,398)
+    time.sleep(0.5)
+    
     # Location of second menu
-    mousePos((603, 621))
-    pyautogui.mouseDown()
-    time.sleep(0.1)
-    pyautogui.mouseUp()
+    pyautogui.click(584, 623)
+    time.sleep(0.5)
 
     # Location of third menu
-    mousePos((894, 673))
-    pyautogui.mouseDown()
-    time.sleep(0.1)
-    pyautogui.mouseUp()
+    pyautogui.click(895, 678)
+    time.sleep(0.5)
 
     # Location of fourth menu
-    mousePos((598, 590))
-    pyautogui.mouseDown()
-    time.sleep(0.1)
-    pyautogui.mouseUp()
+    pyautogui.click(595, 595)
+    time.sleep(0.5)
+
+
 
 if __name__ == "__main__":
     startGame()
