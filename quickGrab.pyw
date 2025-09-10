@@ -3,6 +3,7 @@
 # maximized with the Bookmarks Toolbar enabled. 
 # Down key has been hit 4 times to center play area in browser. 
 # You can find your own coordinates using the code in soft.py.
+# Or you can readjust the code and use image recognition to find buttons
 
 # x_pad = 156 
 # y_pad = 345 
