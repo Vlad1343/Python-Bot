@@ -1,5 +1,7 @@
 import pyautogui
 import time
+from PIL import Image, ImageOps, ImageGrab
+from numpy import *
 
 x_pad = 77
 y_pad = 163
@@ -93,8 +95,38 @@ def makeFood(food):
     
 def foldMat():
     pyautogui.click(464, 604) # fold mat
+
+        
+def screenGrab():
+    time.sleep(3)
+    b1 = (x_pad+1, y_pad+1, x_pad+1047, y_pad+556)  # Define the bounding box (left, upper, right, lower)
+    im = ImageGrab.grab(b1)
+
+    # im.save(os.path.join(os.getcwd(), 'screenshot.png'), 'PNG')
+    return im
         
         
+def buyFood(food):
+    if food == "rice":
+        pyautogui.click(Cord.phone)
+        time.sleep(0.1)
+        pyautogui.click(Cord.menu_rice)
+        time.sleep(0.1)
+        s = screenGrab()
+        if s.getpixel(Cord.buy_rice) != (224, 216, 206, 255):
+            print("Rice is available")
+            pyautogui.click(Cord.buy_rice)
+            time.sleep(0.1)
+            pyautogui.click(Cord.delivery_norm)
+            time.sleep(2.5)
+        else:
+            print("Rice is NOT available")
+            pyautogui.click(Cord.t_exit)
+            time.sleep(1)
+            buyFood(food)
+            
+
+
 
 
 

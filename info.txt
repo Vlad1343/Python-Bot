@@ -1,6 +1,0 @@
-win32api.mouse_event(
-	dwFlags,
-	dx,
-	dy,
-	dwData	
-	)
