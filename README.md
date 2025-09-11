@@ -1,7 +1,6 @@
 # Sushi Go Round Automation Bot
 
 This repository is dedicated to automating the browser game **Sushi Go Round** using Python.
-
 It serves as a hands-on project to explore GUI automation, image processing, and game logic simulation.
 
 ---
