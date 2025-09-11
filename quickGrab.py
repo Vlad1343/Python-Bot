@@ -14,7 +14,7 @@ Sushi Go Round: https://www.crazygames.com/game/sushi-go-round
 from PIL import ImageGrab
 import os
 import time
-from cord import Cord
+from cords import Cord
 
 x_pad = 77
 y_pad = 163
