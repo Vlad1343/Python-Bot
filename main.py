@@ -4,6 +4,8 @@ from PIL import ImageGrab, ImageOps
 from quickGrab import screenGrab
 from cords import Cord
 
+pyautogui.FAILSAFE = True
+
 # --- GLOBAL CONFIGURATION ---
 x_pad = 77
 y_pad = 163
@@ -132,14 +134,98 @@ def checkFood():
             buyFood(item)
 
 
+# Each tuple is the rectangular area where the customer bubble appears.
+seat_areas = [
+    (264, 231, 335, 253),
+    (378, 233, 450, 254),
+    (494, 231, 565, 251),
+    (609, 231, 680, 253),
+    (725, 231, 797, 252),
+    (839, 233, 913, 253),
+]
 
+
+# Mapping of grayscale sums to sushi types
+sushiTypes = {
+    317063: "onigiri",
+    372787: "caliroll",
+    332489: "gunkan",
+}
+
+
+def get_image_sum(box):
+    """Take a screenshot of the given box, convert to grayscale, and return the sum of all pixel values."""
+    img = ImageGrab.grab(box)
+    gray = ImageOps.grayscale(img)
+    return sum(gray.getdata())
+
+
+def check_seats():
+    """Check each seat area, detect which sushi is requested, and return a list of (seat_index, sushiType)."""
+    results = []
+    for i, box in enumerate(seat_areas, start=1):
+        img_sum = get_image_sum(box)
+
+        if img_sum in sushiTypes:
+            results.append((i, sushiTypes[img_sum]))  # (seat_number, sushi_name)
+        else:
+            results.append((i, None))  # None means seat is empty or unknown
+    return results
+
+
+def process_seats():
+    """Loop through all seats, print results, and call makeFood() if needed."""
+    detections = check_seats()
+
+    for seat_index, sushi in detections:
+        if sushi:
+            print(f"Seat {seat_index} needs {sushi}")
+            makeFood(sushi)  # <-- This function must exist in your code
+        else:
+            print(f"Seat {seat_index} is empty or unknown sushi")
+
+
+def check_bubs():
+    """Check all 6 seat bubbles, identify requested sushi, and make it if needed."""
+    checkFood()  # Make sure we have enough ingredients before starting
+    detections = check_seats()  # Returns a list of (seat_index, sushi_name or None)
+
+    for seat_index, sushi in detections:
+        if sushi:
+            print(f"Table {seat_index} is occupied and needs {sushi}")
+            makeFood(sushi)
+        else:
+            print(f"Table {seat_index} is unoccupied or unknown sushi")
+
+        checkFood()  # Check after each table to keep ingredients topped up
+
+    clearTables()  # Clear plates at the end of the cycle
 
 # --- MAIN EXECUTION ---
 
 if __name__ == "__main__":
-    print("Switch to the game window. Starting in 2 seconds...")
-    time.sleep(2)
+    import pyautogui
+    pyautogui.FAILSAFE = True  # move cursor to top-left to stop script
+
+    print("Switch to the game window. Starting in 3 seconds...")
+    time.sleep(3)
     startGame()
-    # makeFood("onigiri")
-    # clearTables()
-    # checkFood()
+
+    try:
+        while True:
+            detections = check_seats()  # returns list of (seat_index, sushi_name)
+            
+            for seat_index, sushi in detections:
+                if sushi:
+                    print(f"Table {seat_index} needs {sushi}")
+                    makeFood(sushi)
+                else:
+                    print(f"Table {seat_index} is empty or unknown")
+                
+                checkFood()  # restock if needed
+            
+            clearTables()  # clear plates
+            time.sleep(1.5)
+
+    except pyautogui.FailSafeException:
+        print("Stopped by moving mouse to top-left corner.")

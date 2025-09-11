@@ -1,15 +1,4 @@
-""" 
-All coordinates assume a screen resolution of 3456x2234, and Chrome 
-maximized with the Bookmarks Toolbar enabled. 
-Down key has been hit 4 times to center play area in browser. 
-You can find your own coordinates using the code in soft.py.
-Or you can readjust the code and use image recognition to find buttons
 
-x_pad = 156 
-y_pad = 345 
-Play area = x_pad+1, y_pad+1, 796, 825 
-Sushi Go Round: https://www.crazygames.com/game/sushi-go-round
-"""
 
 from PIL import ImageGrab
 import os
@@ -33,7 +22,6 @@ def test():
     img = screenGrab()
     pixel = img.getpixel(Cord.buy_rice)
     print(f"Pixel color at shrimp button: {pixel}")
-
 
 
 

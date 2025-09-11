@@ -22,3 +22,4 @@ class Cord:
     buy_rice = (856, 485)
     
     delivery_norm = (799, 499)
+    
